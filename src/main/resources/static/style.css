@@ -1,0 +1,11 @@
+body {
+    font-family: Tahoma, sans-serif;                /* Đặt kiểu chữ (font) cho toàn bộ trang web là Arial, nếu không có thì dùng sans-serif. */
+    font-size: 19px;                               /* Đặt kích thước chữ mặc định cho toàn bộ trang là 18 pixel. */
+    background-color: #ffd966;                         /* Đặt màu nền của trang web (background) là màu đỏ. */
+    color: white;                                 /* Đặt màu chữ mặc định cho toàn bộ trang là màu vàng. */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 25px;                               /* Đặt kích thước chữ cho các thẻ tiêu đề (heading) H1 đến H6 là 24 pixel. */
+    color: white;                                 /* Đặt màu chữ cho các thẻ tiêu đề là màu vàng. */
+}

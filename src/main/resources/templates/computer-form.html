@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Computer Form Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h1 th:if="${formMode=='update'}">Update Product</h1>
+    <h1 th:if="${formMode=='create'}">Update Product</h1>
+    <form th:action="@{/computers/save}" method="POST" th:object="${computers}">
+        <div>
+            <input type="hidden" th:field="*{computerId}"/>
+        </div>
+        <div>
+            <label for="model">Computer Model</label>
+            <input id="model" type="text" th:field="*{computerModel}"/>
+            <span th:errors="*{computerModel}" style="color:red"></span>
+        </div>
+        <div>
+            <label for="type">Type</label>
+            <input id="type" type="text" th:field="*{type}"/>
+            <span th:errors="*{type}" style="color:red"></span>
+        </div>
+        <div>
+            <label for="year">Production Year</label>
+            <input id="year" type="text" th:field="*{productionYear}"/>
+            <span th:errors="*{productionYear}" style="color:red"></span>
+        </div>
+        <div>
+            <label for="price">Price</label>
+            <input id="price" type="text" th:field="*{price}"/>
+            <span th:errors="*{price}" style="color:red"></span>
+        </div>
+        <div>
+            <label for="manufacturer">Manufacturer</label>
+            <select id="manufacturer" th:field="*{manufacturer}">
+                <option th:each="x : ${manufacturers}"
+                        th:value="${x.manufacturerId}"
+                        th:text="${x.manufacturerName}"
+                        th:selected="${computers.manufacturer!=null and computers.manufacturer.manufacturerId== x.manufacturerId}">
+                </option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+        <div>
+            <input type="hidden" name="mode" th:value="${formMode}">
+        </div>
+    </form>
+</body>
+</html>
