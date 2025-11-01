@@ -1,11 +1,55 @@
+
 body {
-    font-family: Tahoma, sans-serif;                /* Đặt kiểu chữ (font) cho toàn bộ trang web là Arial, nếu không có thì dùng sans-serif. */
-    font-size: 19px;                               /* Đặt kích thước chữ mặc định cho toàn bộ trang là 18 pixel. */
-    background-color: #ffd966;                         /* Đặt màu nền của trang web (background) là màu đỏ. */
-    color: white;                                 /* Đặt màu chữ mặc định cho toàn bộ trang là màu vàng. */
+    font-family: Tahoma, sans-serif;
+    font-size: 19px;
+    background-color: #ffd966;
+    color: white;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-size: 25px;                               /* Đặt kích thước chữ cho các thẻ tiêu đề (heading) H1 đến H6 là 24 pixel. */
-    color: white;                                 /* Đặt màu chữ cho các thẻ tiêu đề là màu vàng. */
+    font-size: 25px;
+    color: white;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    color: black;
+
+}
+th, td {
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: left;
+}
+thead th {
+    background-color: gray;
+    font-weight: bold;
+    color: black;
+}
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+button {
+    background-color: lightblue;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    margin-top: 2px;
+}
+
+form {
+    max-width: 400px;
+    margin: 50px auto;
 }

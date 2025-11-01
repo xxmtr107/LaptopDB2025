@@ -3,43 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Pham Minh Triet - Computer Management Page</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
-    <h1>List of computers</h1>
     <div>
-        <a th:href="@{/computers/create}">Add New Computer</a> |
+        <h1>List of computers</h1>
+        <div>
+            <p th:text="${'Hello ' + session.user.email}"></p>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+
+        <div th:if ="${session.user.role.equals('Admin')}">
+            <a th:href="@{/computers/create}">Add New Computer</a> |
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Computer ID</th>
+                <th>Computer Model</th>
+                <th>Type</th>
+                <th>Production Year</th>
+                <th>Price</th>
+                <th>Manufacturer Name</th>
+                <th th:if ="${session.user.role.equals('Admin')}">Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="x: ${computers}">
+                <td th:text="${x.computerId}"></td>
+                <td th:text="${x.computerModel}"></td>
+                <td th:text="${x.type}"></td>
+                <td th:text="${x.productionYear}"></td>
+                <td th:text="${x.price}"></td>
+                <td th:text="${x.manufacturer.manufacturerName}"></td>
+                <td th:if ="${session.user.role.equals('Admin')}">
+                    <a th:href="@{/computers/update/{id}(id = ${x.computerId})}">Update</a>
+                    <a th:href="@{/computers/delete/{id}(id = ${x.computerId})}"
+                    onclick="return confirm('Are u sure?');">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <table>
-        <thead>
-        <tr>
-            <th>Computer ID</th>
-            <th>Computer Model</th>
-            <th>Type</th>
-            <th>Production Year</th>
-            <th>Price</th>
-            <th>Manufacturer Name</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="x: ${computers}">
-            <td th:text="${x.computerId}"></td>
-            <td th:text="${x.computerModel}"></td>
-            <td th:text="${x.type}"></td>
-            <td th:text="${x.productionYear}"></td>
-            <td th:text="${x.price}"></td>
-            <td th:text="${x.manufacturer.manufacturerName}"></td>
-            <td>
-                <a th:href="@{/computers/update/{id}(id = ${x.computerId})}">Update</a>
-            </td>
-            <td>
-                <a th:href="@{/computers/delete/{id}(id = ${x.computerId})}"
-                onclick="return confirm('Are u sure?');">Delete</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </body>
 </html>

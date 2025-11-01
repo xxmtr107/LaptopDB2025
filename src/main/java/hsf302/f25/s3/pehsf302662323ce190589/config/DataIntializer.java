@@ -72,7 +72,7 @@ public class DataIntializer implements CommandLineRunner {
         computerRepository.save(Computer.builder()
                 .computerModel("Pavilion 15")
                 .type("Consumer Laptop")
-                .productionYear(2023)
+                .productionYear(2022)
                 .price(BigDecimal.valueOf((699.99)))
                 .manufacturer(manufacturerRepository.findById(3).orElse(null))
                 .build());

@@ -39,13 +39,21 @@ public class ComputerController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id, Model model) {
+    public String delete(@PathVariable Integer id, Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return  "redirect:/login";
+        }
         computerService.deleteById(id);
         return "redirect:/computers";
     }
 
     @GetMapping("/update/{id}")
-    public String update(@PathVariable Integer id, Model model) {
+    public String update(@PathVariable Integer id, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return  "redirect:/login";
+        }
         model.addAttribute("computers", computerService.findById(id));
         model.addAttribute("manufacturers", manufacturerService.findAll());
         model.addAttribute("formMode", "update");
@@ -53,7 +61,11 @@ public class ComputerController {
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
+    public String create(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return  "redirect:/login";
+        }
         model.addAttribute("computers", new Computer());
         model.addAttribute("manufacturers", manufacturerService.findAll());
         model.addAttribute("formMode", "create");
@@ -63,6 +75,12 @@ public class ComputerController {
     @PostMapping("/save")
     public String save(@Valid @ModelAttribute("computers") Computer computer,
                        BindingResult bindingResult, Model model, @RequestParam("mode") String formMode) {
+        if(computer.getProductionYear() !=null){
+            int currentYear = Year.now().getValue();
+            if(computer.getProductionYear() > currentYear){
+                bindingResult.rejectValue("productionYear", "error.computer", "Production year cannot be in the future.");
+            }
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("manufacturers", manufacturerService.findAll());
             model.addAttribute("formMode", formMode);

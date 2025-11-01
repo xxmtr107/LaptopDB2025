@@ -5,6 +5,7 @@ import hsf302.f25.s3.pehsf302662323ce190589.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +30,14 @@ public class UserController {
     @PostMapping("/auth")
     public String doLogin(@RequestParam  String email,
                           @RequestParam String password,
-                          HttpSession session){
+                          HttpSession session,
+                          Model model){
         User user = userService.authenticate(email, password);
         if(user == null){
+            model.addAttribute("error", "Invalid email or password!");
+            return "login";
+        }
+        if(!userService.isAdminOrStaff(user)){
             return "error";
         }
         session.setAttribute("user", user);
